@@ -53,7 +53,6 @@ void affiche_tableau(int tab[], int n){
     printf("]\n");
     
 
-
 }
 
 int saisie_tab(int tableau[]){
