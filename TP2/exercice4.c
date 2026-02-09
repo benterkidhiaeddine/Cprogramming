@@ -28,18 +28,10 @@ void test_cherher_caractere(char chaine[], char symbole, char expected[]){
 }
 
 void question1(void){
-    char * str1 = "hello";
-    char * str2 = "aaaaaaaaaaaaaaaaaaaaaaa;";
-    char * str3 = "bba;";
-    char * str4 = "";
-    char c1 = 'l';
-    char  c2 = ';';
-    char  c3 = 'c';
-    char  c4 = 'z';
-    test_cherher_caractere(str1, c1 , "Oui");
-    test_cherher_caractere(str2, c2 , "Oui");
-    test_cherher_caractere(str3, c3 , "Non");
-    test_cherher_caractere(str4, c4 , "Non");
+    test_cherher_caractere("hello", 'l', "Oui");
+    test_cherher_caractere("aaaaaaaaaaaaaaaaaaaaaaa;", ';' , "Oui");
+    test_cherher_caractere("bba",'c' , "Non");
+    test_cherher_caractere("",  'z', "Non");
 }
 
 /*
@@ -48,7 +40,7 @@ void question1(void){
 int egale(char chaine1[], char chaine2[]){
 
     int i = 0;
-    while (chaine1[i] != '\0' && chaine2[i] != '0'){
+    while (chaine1[i] != '\0' && chaine2[i] != '\0'){
         if (chaine1[i] != chaine2[i]){
             return 0;
         } 
@@ -77,16 +69,11 @@ void tester_egale(char chaine1[] , char chaine2[], char expected[]){
 
 
 void question2(void){
-    char* str1 = "hello";
-    char* str2 = "hellos";
-
-
-    char* str3 = "abca";
-    char* str4 = "";
-
-    tester_egale(str1 , str2 ,"Non");
-    tester_egale(str3 , str3 ,"Oui");
-    tester_egale(str3 , str4 ,"Non");
+    tester_egale("hello" , "goodbye" ,"Non");
+    tester_egale("abca" , "abca" ,"Oui");
+    tester_egale("aaaba" , "aaaab","Non");
+    tester_egale("" , "","Oui");
+    tester_egale("a" , "b","Oui");
 
 }
 
@@ -96,7 +83,7 @@ son miroir.
 
 */
 
-int length(char chaine[]){
+int length(char *chaine){
     int i = 0;
     while(chaine[i] != '\0'){
         i++;
@@ -117,6 +104,22 @@ void miroir(char chaine []){
     }
 
 }
+void test_miroir(char chaine [],char initial[], char expected[]){
+
+    miroir(chaine);
+    printf("Le miroir de la chaine \"%s\" est :(Retour: %s)  == (Attendue:%s)\n", initial, chaine, expected );
+
+
+}
+
+void question3(){
+    char  str1[4] ="bba";
+    char  str2[5] ="bba";
+    test_miroir(str1, "bba", "abb");
+    test_miroir(str2, "abab", "baba");
+
+}
+
 /*
 4. Écrivez la fonction int inclue(char chaine[], char sous_chaine[]) qui teste si le second paramètre de
 la fonction est une sous-chaîne du premier.
@@ -125,18 +128,22 @@ la fonction est une sous-chaîne du premier.
 int inclue(char chaine[], char sous_chaine[]){
     int i = 0;
     int j = 0;
-    while (chaine[i] != '\0' && sous_chaine[j] != '\0'){
-        if (chaine[i] == sous_chaine[j]){
-            i++;
+    while (chaine[i] != '\0' ){
+        while (chaine[i + j] != '\0' && sous_chaine[j] != '\0' && chaine[i + j] == sous_chaine[j]){
             j++;
         }
-        else {
-            i++;
-            j = 0;
+        /* Si on est sortie de la boucle on vérifie si on est arrivé à la fin de la sous chaine 
+         c'est à dire il y avait le match avec toute la sous chaine*/
+        if (sous_chaine[j] =='\0'){
+                return 1;
         }
+        /* Dans le cas ou il y a pas de match ou reset l'incrémenteur de la sous chaine au début */
+        j = 0;
+        /* On avance l'incrémenteur de la chaine*/
+        i++;
     }
         
-    return sous_chaine[j] == '\0';
+    return 0;
 } 
 
 
@@ -157,30 +164,19 @@ void test_inclue(char chaine[], char sous_chaine[], char expected[] ){
 
 void question4(){
 
-    char * str1 = "hello";
-    char * str2 = "ll";
-
-    test_inclue(str1 , str2, "Oui");
+    test_inclue("hello" , "ll", "Oui");
+    test_inclue("aaab" , "aab", "Oui");
+    test_inclue("abbba" , "aba", "Non");
+    test_inclue("abbba" , "aba", "Non");
+    test_inclue("abcba" , "abca", "Non");
 }
 
 
 
 
-void test_miroir(char chaine [],char initial[], char expected[]){
-
-    miroir(chaine);
-    printf("Le miroir de la chaine \"%s\" est :(Retour: %s)  == (Attendue:%s)\n", initial, chaine, expected );
 
 
-}
 
-
-void question3(){
-    char  str1[4] = "bba";
-    char  expected1[4] = "abb";
-    test_miroir(str1, "bba", expected1);
-
-}
 
 int main(void){
 

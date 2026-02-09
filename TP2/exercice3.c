@@ -64,7 +64,7 @@ int est_decimal(nombre n) {
 
 void _afficher_nombre(nombre n){
     if (est_decimal(n)){
-        printf("[type : deicmal , valeur : %.2f]", n.value.dec);
+        printf("[type : decimal , valeur : %.2f]", n.value.dec);
     }
     else {
         printf("[type: entier , valeur : %d]", n.value.ent);

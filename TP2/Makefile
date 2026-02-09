@@ -6,5 +6,7 @@ exercice3: exercice3.c
 	gcc -Wall -pedantic -ansi exercice3.c -o exercice3
 exercice4: exercice4.c
 	gcc -Wall -pedantic -ansi exercice4.c -o exercice4
+exercice5: exercice5.c
+	gcc -Wall -pedantic -ansi exercice5.c -o exercice5
 debug4:
 	gcc exercice4.c -o  exercice4.debug
