@@ -179,6 +179,108 @@ void question6()
     ajout_simple(&bulletin1, 22);
     afficher_bulletin(bulletin1);
 }
+
+/*
+
+7. Écrivez une fonction ajout qui ajoute une nouvelle note au bulletin. Cependant, si le tableau est plein, on remplace
+la plus mauvaise note du tableau par celle donnée en paramètre (si cette dernière est meilleure, évidement). On
+utilisera la fonction ajout_simple et on renverra 0 si l’ajout s’est fait sans problème, 1 si le tableau étant plein,
+la pire note a été remplacée, 2 si le tableau étant plein, la nouvelle note a été ignorée car trop mauvaise et -1 en
+cas de note non valide. Remarque : vous avez le droit de créer des fonctions auxiliaires pour simplifier votre code.
+
+*/
+
+int min_idx_tab_notes(int tab[], int taille)
+{
+    int i;
+    int min_idx = 0;
+
+    /*
+        retourner -1 si le tableau est vide, les notes sont tous positifs
+    */
+    if (taille == 0)
+    {
+        return -1;
+    }
+
+    for (i = 1; i < taille; i++)
+    {
+        if (tab[i] < tab[min_idx])
+        {
+            min_idx = i;
+        }
+    }
+
+    return min_idx;
+}
+
+int ajout(bulletin *b, int note)
+{
+
+    int min_idx = 0;
+    if (note < 0 || note > 20)
+    {
+        return -1;
+    }
+
+    /*
+        cas ou le bulletin à un tableau de notes avec une taille égale = 0, cad il est toujours plein
+
+    */
+    if (b->taille == 0)
+    {
+        return 2;
+    }
+
+    /*
+        tableau plein
+    */
+    if (b->n == b->taille)
+    {
+        /*
+            pas besoin de vérifier s'il y a une erreur , on sait d'emblé que le talbeau a au moins un élément
+        */
+        min_idx = min_idx_tab_notes(b->notes, b->taille);
+        if (note < b->notes[min_idx])
+        {
+            return 2;
+        }
+        else
+        {
+            b->notes[min_idx] = note;
+            return 1;
+        }
+    }
+
+    b->notes[b->n] = note;
+    b->n = (b->n) + 1;
+
+    return 0;
+}
+
+void test_ajout(bulletin *b, int note, int attendue)
+{
+    int code;
+    printf("Avant ajout de la note %d \n", note);
+    afficher_bulletin(*b);
+    code = ajout(b, note);
+    printf("Après ajout de la note %d, code de retour %d , Attendue = %d\n", note, code, attendue);
+    afficher_bulletin(*b);
+}
+
+void question7(void)
+{
+
+    bulletin bulletin1 = nouveau(3);
+    test_ajout(&bulletin1, 5, 0);
+    test_ajout(&bulletin1, 9, 0);
+    test_ajout(&bulletin1, 10, 0);
+    test_ajout(&bulletin1, 22, -1);
+    test_ajout(&bulletin1, -1, -1);
+    test_ajout(&bulletin1, 4, 2);
+    test_ajout(&bulletin1, 6, 1);
+}
+
 int main(void)
 {
     printf("Question1: ==================================\n");
@@ -191,6 +293,10 @@ int main(void)
     printf("\n");
     printf("Question6: ==================================\n");
     question6();
+    printf("=============================================\n");
+    printf("\n");
+    printf("Question7: ==================================\n");
+    question7();
     printf("=============================================\n");
     printf("\n");
 
