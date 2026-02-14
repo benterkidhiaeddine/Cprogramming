@@ -241,7 +241,7 @@ int ajout(bulletin *b, int note)
             pas besoin de vérifier s'il y a une erreur , on sait d'emblé que le talbeau a au moins un élément
         */
         min_idx = min_idx_tab_notes(b->notes, b->taille);
-        if (note < b->notes[min_idx])
+        if (note <= b->notes[min_idx])
         {
             return 2;
         }
@@ -252,10 +252,7 @@ int ajout(bulletin *b, int note)
         }
     }
 
-    b->notes[b->n] = note;
-    b->n = (b->n) + 1;
-
-    return 0;
+    return ajout_simple(b, note);
 }
 
 void test_ajout(bulletin *b, int note, int attendue)
