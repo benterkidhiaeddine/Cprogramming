@@ -178,6 +178,8 @@ void question6()
     afficher_bulletin(bulletin1);
     ajout_simple(&bulletin1, 22);
     afficher_bulletin(bulletin1);
+
+    liberer_memoire(bulletin1);
 }
 
 /*
@@ -276,6 +278,8 @@ void question7(void)
     test_ajout(&bulletin1, -1, -1);
     test_ajout(&bulletin1, 4, 2);
     test_ajout(&bulletin1, 6, 1);
+
+    liberer_memoire(bulletin1);
 }
 
 int main(void)
