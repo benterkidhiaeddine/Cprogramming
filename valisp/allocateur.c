@@ -78,3 +78,15 @@ int rm_bloc(int indice){
     rm = bloc_contient_rm >> 31;
     return rm;
 }
+
+
+int taille_bloc(int indice){
+    int suivant = bloc_suivant(indice);
+    /*
+        Cas spécail pour la dernière case de métadonées 
+    */
+    if (indice == (TAILLE_MEMOIRE_DYNAMIQUE - 1)){
+        return 0;
+    }
+    return suivant - indice - 1;
+}
