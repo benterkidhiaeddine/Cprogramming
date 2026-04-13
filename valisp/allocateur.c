@@ -1,4 +1,5 @@
 #include "allocateur.h"
+#include <stdio.h>
 
 
 
@@ -89,4 +90,15 @@ int taille_bloc(int indice){
         return 0;
     }
     return suivant - indice - 1;
+}
+
+int rechercher_bloc_libre(int nombre_blocs){
+    int i ;
+    for(i = 0 ; i < TAILLE_MEMOIRE_DYNAMIQUE - 1  ; i = bloc_suivant(i)){
+        if (nombre_blocs <= taille_bloc(i) && (usage_bloc(i) == 0)) {
+            return i;
+        }
+    }
+
+    return -1;
 }

@@ -20,4 +20,6 @@ int bloc_precedant(int indice);
 int usage_bloc(int indice);
 int rm_bloc(int indice);
 
+int rechercher_bloc_libre(int nombre_blocs);
+
 #endif
