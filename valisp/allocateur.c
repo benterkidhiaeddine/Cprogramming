@@ -41,7 +41,7 @@ bloc cons_bloc(int rm, int precedant, int libre, int suivant){
 
 int bloc_suivant(int indice){
     int suivant;
-    bloc bloc_contient_suivant = MEMOIRE_DYNAMIQUE[indice];
+    int bloc_contient_suivant = MEMOIRE_DYNAMIQUE[indice];
    
     suivant = bloc_contient_suivant & ((1 << 15) - 1); 
     return suivant;
@@ -51,7 +51,7 @@ int bloc_suivant(int indice){
 int bloc_precedant(int indice){
 
     int precedent;
-    bloc bloc_contient_precedent = MEMOIRE_DYNAMIQUE[indice];
+    int bloc_contient_precedent = MEMOIRE_DYNAMIQUE[indice];
 
     precedent = bloc_contient_precedent >> 16;
     precedent = precedent & ((1 << 15) - 1);
@@ -93,7 +93,7 @@ int taille_bloc(int indice){
 }
 
 int rechercher_bloc_libre(int nombre_blocs){
-    bloc i ;
+    int i ;
     for(i = 0 ; i < TAILLE_MEMOIRE_DYNAMIQUE - 1  ; i = bloc_suivant(i)){
         if (nombre_blocs <= taille_bloc(i) && (usage_bloc(i) == 0)) {
             return i;
@@ -103,3 +103,47 @@ int rechercher_bloc_libre(int nombre_blocs){
     return -1;
 }
 
+int allocateur_balloc(int nombre_blocs){
+    bloc nouvea_b;
+    bloc nouveau_suivant;
+    int indice_suivant_b;
+    int indice_nouveau_bloc;
+
+    int indice_b = rechercher_bloc_libre(nombre_blocs);
+
+    if (indice_b == - 1){
+        return -1;
+    }
+
+    /*
+        Si la taille est exacte pour le bloc trouvé on le marque seulement comme occupé et retourne l'indice  du premier bloc 
+    
+    */
+    if (taille_bloc(indice_b) == nombre_blocs){
+        MEMOIRE_DYNAMIQUE[indice_b] = cons_bloc(rm_bloc(indice_b), bloc_precedant(indice_b), 1, bloc_suivant(indice_b));
+    }
+
+    else {
+        indice_suivant_b = bloc_suivant(indice_b);
+
+        /*
+            Créer le nouveau bloc libre suivant 
+        */
+
+        nouvea_b = cons_bloc(0, indice_b , 0, indice_suivant_b);
+        indice_nouveau_bloc = indice_b + nombre_blocs + 1;
+        MEMOIRE_DYNAMIQUE[indice_nouveau_bloc] = nouvea_b;
+
+        /*
+           maitre le nouveau bloc crée comme prédecent de suivant de notre block alloué 
+        */
+        nouveau_suivant = cons_bloc(rm_bloc(indice_suivant_b) , indice_nouveau_bloc, usage_bloc(indice_suivant_b), bloc_suivant(indice_suivant_b) );
+        MEMOIRE_DYNAMIQUE[indice_suivant_b] = nouveau_suivant; 
+        
+        
+        MEMOIRE_DYNAMIQUE[indice_b] = cons_bloc(rm_bloc(indice_b), bloc_precedant(indice_b), 1, indice_nouveau_bloc);
+
+    }
+
+    return indice_b;
+}
