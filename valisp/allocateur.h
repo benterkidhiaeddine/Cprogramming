@@ -21,5 +21,6 @@ int usage_bloc(int indice);
 int rm_bloc(int indice);
 
 int rechercher_bloc_libre(int nombre_blocs);
+int allocateur_balloc(int nombre_blocs);
 
 #endif

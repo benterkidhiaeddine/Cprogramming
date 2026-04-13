@@ -93,7 +93,7 @@ int taille_bloc(int indice){
 }
 
 int rechercher_bloc_libre(int nombre_blocs){
-    int i ;
+    bloc i ;
     for(i = 0 ; i < TAILLE_MEMOIRE_DYNAMIQUE - 1  ; i = bloc_suivant(i)){
         if (nombre_blocs <= taille_bloc(i) && (usage_bloc(i) == 0)) {
             return i;
@@ -102,3 +102,4 @@ int rechercher_bloc_libre(int nombre_blocs){
 
     return -1;
 }
+
