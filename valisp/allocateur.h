@@ -3,5 +3,5 @@
 /*
     Maitre les headers des fonctions ici
 */
-
+void initialiser_memoire_dynamique();
 #endif
