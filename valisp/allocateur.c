@@ -152,14 +152,14 @@ int allocateur_balloc(int nombre_blocs){
 
 int octets_vers_blocs(size_t size){
     int remainder;
-    remainder = size % 4;
+    remainder = size % sizeof(bloc);
 
     if (remainder == 0){
-        return size / 4; 
+        return size / sizeof(bloc); 
     }
 
     else {
-        return (size / 4) + 1;
+        return (size / sizeof(bloc)) + 1;
     
     }
 }
