@@ -24,5 +24,6 @@ int rm_bloc(int indice);
 int rechercher_bloc_libre(int nombre_blocs);
 int allocateur_balloc(int nombre_blocs);
 int octets_vers_blocs(size_t size);
+void *allocateur_malloc(size_t size);
 
 #endif

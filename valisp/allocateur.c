@@ -163,3 +163,20 @@ int octets_vers_blocs(size_t size){
     
     }
 }
+
+
+
+void *allocateur_malloc(size_t size){
+    int indice_b;
+    int bloc_number = octets_vers_blocs(size);
+
+    indice_b = allocateur_balloc(bloc_number); 
+
+    if (indice_b == -1){
+        return NULL;
+    }
+
+    else {
+        return MEMOIRE_DYNAMIQUE + indice_b + 1;
+    }
+}
