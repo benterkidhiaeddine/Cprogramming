@@ -188,7 +188,10 @@ void allocateur_bree(int i){
     int prev_i = bloc_precedant(i);
     int suivant_i = bloc_suivant(i);
     int suivant_suivant_i = bloc_suivant(suivant_i);
-    
+        
+    if (i == (TAILLE_MEMOIRE_DYNAMIQUE - 1)) {
+        return;
+    }
     /*
         Bloc adjancents sont pas libres 
     */
@@ -229,3 +232,8 @@ void allocateur_bree(int i){
 
 }
 
+
+void allocateur_free (void *ptr){
+    int pointer_i = (bloc*) ptr - MEMOIRE_DYNAMIQUE -1; 
+    allocateur_bree(pointer_i);
+}

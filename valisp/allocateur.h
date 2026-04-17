@@ -28,6 +28,7 @@ int octets_vers_blocs(size_t size);
 void *allocateur_malloc(size_t size);
 
 void allocateur_bree(int i);
+void allocateur_free (void *ptr);
 
 
 #endif
