@@ -147,3 +147,19 @@ int allocateur_balloc(int nombre_blocs){
 
     return indice_b;
 }
+
+
+
+int octets_vers_blocs(size_t size){
+    int remainder;
+    remainder = size % 4;
+
+    if (remainder == 0){
+        return size / 4; 
+    }
+
+    else {
+        return (size / 4) + 1;
+    
+    }
+}

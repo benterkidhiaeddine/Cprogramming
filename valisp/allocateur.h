@@ -1,6 +1,7 @@
 #ifndef ALLOCATEUR_H
 #define ALLOCATEUR_H
 #include <stdint.h>
+#include <stddef.h>
 
 #define TAILLE_MEMOIRE_DYNAMIQUE 32768
 /*
@@ -22,5 +23,6 @@ int rm_bloc(int indice);
 
 int rechercher_bloc_libre(int nombre_blocs);
 int allocateur_balloc(int nombre_blocs);
+int octets_vers_blocs(size_t size);
 
 #endif
