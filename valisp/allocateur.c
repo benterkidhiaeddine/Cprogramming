@@ -180,3 +180,52 @@ void *allocateur_malloc(size_t size){
         return MEMOIRE_DYNAMIQUE + indice_b + 1;
     }
 }
+
+
+
+void allocateur_bree(int i){
+
+    int prev_i = bloc_precedant(i);
+    int suivant_i = bloc_suivant(i);
+    int suivant_suivant_i = bloc_suivant(suivant_i);
+    
+    /*
+        Bloc adjancents sont pas libres 
+    */
+    if (usage_bloc(prev_i) && usage_bloc(suivant_i)){
+        /*  On change seuelemnt le bit d'usage */
+        MEMOIRE_DYNAMIQUE[i] = cons_bloc(0,bloc_precedant(i), 0 , bloc_suivant(i));
+        return;
+    }
+
+    /*
+        Bloc précédent libre, bloc suivant ouccupé 
+    */
+
+    else if (!usage_bloc(prev_i) && usage_bloc(suivant_i)){
+
+        MEMOIRE_DYNAMIQUE[prev_i] = cons_bloc(rm_bloc(prev_i), bloc_precedant(prev_i), 0, suivant_i);
+        MEMOIRE_DYNAMIQUE[suivant_i] = cons_bloc(rm_bloc(suivant_i), prev_i, usage_bloc(suivant_i), suivant_suivant_i);
+        return;
+    }
+
+
+    /*
+        Bloc précedent  occupé, bloc suivant libre  
+    */
+    else if (usage_bloc(prev_i) && !usage_bloc(suivant_i)){
+        MEMOIRE_DYNAMIQUE[i] = cons_bloc(0,bloc_precedant(i), 0 , bloc_suivant(suivant_i));
+        MEMOIRE_DYNAMIQUE[suivant_suivant_i] = cons_bloc(rm_bloc(suivant_suivant_i), i, usage_bloc(suivant_suivant_i), bloc_suivant(suivant_suivant_i));
+        return;
+    }    
+    /*
+        Bloc adjacents sont libres 
+    */
+   else{ 
+       MEMOIRE_DYNAMIQUE[prev_i] = cons_bloc(rm_bloc(prev_i), bloc_precedant(prev_i), 0 , suivant_suivant_i);
+       MEMOIRE_DYNAMIQUE[suivant_suivant_i] = cons_bloc(rm_bloc(suivant_suivant_i), prev_i, usage_bloc(suivant_suivant_i) , bloc_suivant(suivant_suivant_i));
+       return;
+   }
+
+}
+
