@@ -42,5 +42,17 @@ void afficher(sexpr val);
 bool symbol_match_p(sexpr val, const char *chaine);
 
 
+/*
+    Fonctions des Listes
+
+*/
+sexpr cons(sexpr e1, sexpr e2);
+bool cons_p (sexpr e);
+sexpr car(sexpr e);
+sexpr cdr(sexpr e);
+void set_car(sexpr e, sexpr nouvelle);
+void set_cdr(sexpr e, sexpr nouvelle);
+void afficher_liste(sexpr e);
+
 
 #endif

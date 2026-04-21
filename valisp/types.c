@@ -42,16 +42,22 @@ struct valisp_object {
 
 void afficher(sexpr s_expression){
     if (s_expression == NULL){
-        printf("nil\n");
+        printf("nil");
     }
-    switch (s_expression->type){
-        case entier:
-            printf("%d", s_expression->data.i);
-            break;
-        case chaine:
-            printf("%s", s_expression->data.c);    
-        case symbole:
-            printf("%s", s_expression->data.c);    
+    else{
+        switch (s_expression->type){
+            case entier:
+                printf("%d", s_expression->data.i);
+                break;
+            case chaine:
+                printf("%s", s_expression->data.c);    
+            case symbole:
+                printf("%s", s_expression->data.c);    
+            case couple:
+                printf("(");
+                afficher_liste(s_expression);
+                printf(")");
+        }
 
     }
 }
@@ -179,17 +185,15 @@ bool my_strcmp(char* a, char* b) {
 
 sexpr new_symbol(char *c){
 
-    sexpr res = valisp_malloc(sizeof(struct valisp_object));
-
-    res->type = symbole;
-
-    if (c == NULL){
-        res->data.c = chaine_vers_memoire("nil");  ;
+    if (my_strcmp(c, "nil")){
+        return NULL;
     }else{
+        sexpr res = valisp_malloc(sizeof(struct valisp_object));
+        res->type = symbole;
         res->data.c = chaine_vers_memoire(c);
+        return res;
     }
 
-    return res;
 }
 
 
@@ -213,6 +217,103 @@ char *get_symbol(sexpr val){
 
 
 bool symbol_match_p(sexpr val, const char *chaine){
+    if (val == NULL ){
+        return (my_strcmp(chaine, "nil"));
+    }
     return my_strcmp(val->data.c , chaine);
     
+}
+
+
+/*
+    Fonctions des Listes
+
+*/
+
+sexpr cons(sexpr e1, sexpr e2){
+    sexpr res;
+    struct cons new_cons;
+    
+
+    res = valisp_malloc(sizeof(struct valisp_object));
+    res->type = couple;
+
+    new_cons.car = e1;
+    new_cons.cdr = e2;
+
+    res->data.con = new_cons;
+
+    return res;
+
+}
+
+
+bool cons_p (sexpr e){
+    if (e == NULL){
+        return 0;
+    }
+    return (e->type == couple);
+}
+
+
+sexpr car(sexpr e){
+    if (e == NULL) {
+        ERREUR_FATALE("L'expression = NULL");
+    }
+    return e->data.con.car;
+}
+
+
+sexpr cdr(sexpr e){
+    if (e == NULL) {
+        ERREUR_FATALE("l'expression = NULL");
+    }
+    return e->data.con.cdr;
+}
+
+
+void set_car(sexpr e, sexpr nouvelle){
+    if( e == NULL){
+        ERREUR_FATALE("l'expression = NULL");
+    }
+    e->data.con.car = nouvelle;
+
+}
+void set_cdr(sexpr e, sexpr nouvelle){
+    if (e == NULL){
+        ERREUR_FATALE("l'expression = NULL");
+    }
+    e->data.con.cdr = nouvelle;
+}
+
+void afficher_liste(sexpr e){
+    sexpr x;
+    sexpr y;
+    if  (e == NULL){
+        return;
+    }
+    x = e->data.con.car;
+    y = e->data.con.cdr;
+
+    /*
+        on affiche x
+        • puis on regarde y
+         si y est NULL : on quitte la fonction
+         si y est un cons : on affiche " " et on appelle affiche_liste(y)
+         sinon on affiche " . " puis y.
+     */
+
+    afficher(x);
+    if (y == NULL){
+        return;
+    }
+    else if (y->type == couple){
+        printf(" ");
+        afficher_liste(y);
+    }
+    else {
+        printf(" . ");
+        afficher(y);
+    }
+
 }
