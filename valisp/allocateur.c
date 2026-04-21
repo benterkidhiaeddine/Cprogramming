@@ -151,7 +151,7 @@ int allocateur_balloc(int nombre_blocs){
 
 
 int octets_vers_blocs(size_t size){
-    int remainder;
+    int remainder = 0;
     remainder = size % sizeof(bloc);
 
     if (remainder == 0){
@@ -167,7 +167,7 @@ int octets_vers_blocs(size_t size){
 
 
 void *allocateur_malloc(size_t size){
-    int indice_b;
+    int indice_b = 0 ;
     int bloc_number = octets_vers_blocs(size);
 
     indice_b = allocateur_balloc(bloc_number); 

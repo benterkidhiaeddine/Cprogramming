@@ -1,5 +1,7 @@
 #include "types.h"
+#include  "memoire.h"
 #include <stdio.h>
+#include "debug.h"
 
 enum valisp_type {
     entier,
@@ -42,9 +44,40 @@ void afficher(sexpr s_expression){
     if (s_expression == NULL){
         printf("nil\n");
     }
-    else{
-        printf("<???>");
+    switch (s_expression->type){
+        case entier:
+            printf("%d", s_expression->data.i);
+            break;
+            
     }
 }
 
 
+
+/*
+    Fonctions des entiers
+
+*/
+
+sexpr new_integer(int32_t i){
+    sexpr res =  (sexpr) valisp_malloc(sizeof(struct valisp_object)); 
+    
+    res->type = entier; 
+    res->data.i = i;
+     
+    return res;
+}
+
+
+
+bool integer_p(sexpr val){
+    if (val == NULL){
+        return 0;
+    }
+    return (val->type == entier);
+}
+
+
+int32_t get_integer(sexpr val){
+    return val->data.i;
+}
