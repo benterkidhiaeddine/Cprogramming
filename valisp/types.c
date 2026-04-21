@@ -2,6 +2,7 @@
 #include  "memoire.h"
 #include <stdio.h>
 #include "debug.h"
+#include <string.h>
 
 enum valisp_type {
     entier,
@@ -51,12 +52,21 @@ void afficher(sexpr s_expression){
                 break;
             case chaine:
                 printf("%s", s_expression->data.c);    
+                break;
             case symbole:
                 printf("%s", s_expression->data.c);    
+                break;
             case couple:
                 printf("(");
                 afficher_liste(s_expression);
                 printf(")");
+                break;
+            case prim:
+                printf("#p<%s>", s_expression->data.pri.nom);
+                break;
+            case spec:
+                printf("#s<%s>", s_expression->data.pri.nom);
+                break;
         }
 
     }
@@ -164,28 +174,11 @@ char *get_string(sexpr val){
     Fonctions pour les symboles
 */
 
-bool my_strcmp(char* a, char* b) {
-    int i;
-    int l1 = longeur_chaine(a);
-    int l2 = longeur_chaine(b);
-
-    if (l1 != l2){
-        return 0;
-    }
-    for (i = 0; i <l1 ; i++){
-        if (a[i] != b[i]){
-            return 0;
-        }
-
-    }
-    return 1;
-    
-}
 
 
 sexpr new_symbol(char *c){
 
-    if (my_strcmp(c, "nil")){
+    if (strcmp(c, "nil") == 0){
         return NULL;
     }else{
         sexpr res = valisp_malloc(sizeof(struct valisp_object));
@@ -218,9 +211,9 @@ char *get_symbol(sexpr val){
 
 bool symbol_match_p(sexpr val, const char *chaine){
     if (val == NULL ){
-        return (my_strcmp(chaine, "nil"));
+        return (strcmp(chaine, "nil") == 0);
     }
-    return my_strcmp(val->data.c , chaine);
+    return (strcmp(val->data.c , chaine) == 0);
     
 }
 
@@ -315,5 +308,77 @@ void afficher_liste(sexpr e){
         printf(" . ");
         afficher(y);
     }
+
+}
+
+
+/*
+    Primitives et formes spéciales
+*/
+
+
+sexpr new_primitive(char *nom, primitive p){
+   sexpr res = valisp_malloc(sizeof(struct valisp_object));     
+   char* s_nom = chaine_vers_memoire(nom);
+
+   res->type = prim;
+   res->data.pri.f = p; 
+   res->data.pri.nom = s_nom; 
+
+   return res;
+}
+
+
+
+sexpr new_speciale(char *nom, primitive p){
+   sexpr res = valisp_malloc(sizeof(struct valisp_object));     
+   char* p_nom = chaine_vers_memoire(nom);
+
+   res->type = spec;
+   res->data.pri.f = p; 
+   res->data.pri.nom = p_nom; 
+
+   return res;
+
+}
+
+
+bool prim_p(sexpr val){
+    if (val == NULL){
+        return 0;
+    }
+
+    return (val->type == prim);
+}
+
+bool spec_p(sexpr val){
+    if (val == NULL){
+        return 0;
+    }
+
+    return (val->type == spec);
+}
+
+
+char* get_name(sexpr p){
+    if (p == NULL){
+        ERREUR_FATALE("Essayer d'accéder une primitive NULL");
+    }
+    return p->data.pri.nom;
+}
+
+primitive get_prim(sexpr p){
+    if (p == NULL){
+        ERREUR_FATALE("Essayer d'accéder une primitive NULL");
+    }
+    return p->data.pri.f;
+}
+
+
+sexpr run_prim(sexpr p, sexpr liste, sexpr env){
+    if (p == NULL){
+        ERREUR_FATALE("Essayer de executer NULL comme primitive");
+    }
+    return p->data.pri.f(liste, env);
 
 }
