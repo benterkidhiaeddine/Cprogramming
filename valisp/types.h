@@ -21,5 +21,15 @@ bool integer_p(sexpr val);
 int32_t get_integer(sexpr val);
 
 
+/*
+    Fonctions des chaines
+*/
+
+char *chaine_vers_memoire(const char *c);
+sexpr new_string(char *c);
+bool string_p(sexpr val);
+char *get_string(sexpr val);
+
+
 
 #endif

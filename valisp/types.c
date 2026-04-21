@@ -48,7 +48,8 @@ void afficher(sexpr s_expression){
         case entier:
             printf("%d", s_expression->data.i);
             break;
-            
+        case chaine:
+            printf("%s", s_expression->data.c);    
     }
 }
 
@@ -80,4 +81,71 @@ bool integer_p(sexpr val){
 
 int32_t get_integer(sexpr val){
     return val->data.i;
+}
+
+
+/*
+    Fonctions des chaines de charactères
+*/
+
+int longeur_chaine(const char* c){
+    int i = 0;
+    while(c[i] != 0){
+        i++;
+    }
+    return i;
+}
+
+
+char *chaine_vers_memoire(const char *c){
+    int l;
+    char *res;
+    int i;
+    char *tmp;
+
+    /*
+        Calculer la longeur de la chaine pour conntaintre le nombre d'octets nécessaire 
+    */
+    l = longeur_chaine(c);
+    res = valisp_malloc(sizeof(char) * l + 1 );
+
+
+    /*
+        Copier la chaine de la mémoire statique à notre mémoire dynamique 
+        en utilisant l'arithmétique des pointeurs
+    */
+    i = 0;
+    tmp = res;
+    while (c[i] != 0){
+        *(tmp + i) = c[i];
+        i++;
+    }
+    *(tmp + i) = '\0';
+    return res;
+
+}
+
+
+sexpr new_string(char *c){
+
+    sexpr res = valisp_malloc(sizeof(struct valisp_object));
+    char* new_c = chaine_vers_memoire(c); 
+    res->type = chaine;
+    res->data.c = new_c;
+    return res;
+}
+
+
+bool string_p(sexpr val){
+    if (val == NULL){
+        return 0;
+    }
+    return (val->type == chaine);
+
+}
+
+
+char *get_string(sexpr val){
+    return val->data.c;
+
 }
