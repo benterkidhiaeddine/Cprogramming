@@ -2,6 +2,7 @@
 #define ALLOCATEUR_H
 #include <stdint.h>
 #include <stddef.h>
+#include "erreurs.h"
 
 #define TAILLE_MEMOIRE_DYNAMIQUE 32768
 /*
