@@ -5,6 +5,22 @@
 #include "erreurs.h"
 
 
+
+sexpr SEXPR_ERREUR;
+char *FONCTION_ERREUR;
+char *MESSAGE_ERREUR;
+enum erreurs TYPE_ERREUR;
+
+
+/**********************/
+/*                    */
+/* Erreurs Non Fatales */
+/*                    */
+/**********************/
+
+
+
+
 /**********************/
 /*                    */
 /*  Erreurs Fatales   */
@@ -50,7 +66,56 @@ jmp_buf buf;
 jmp_buf *jump_buffer(void) {
     return &buf;
 }
+ 
+void erreur(enum erreurs type, char *fonction, char *explication, sexpr s){
+    SEXPR_ERREUR = s;
+    FONCTION_ERREUR = fonction;
+    MESSAGE_ERREUR = explication;
+    TYPE_ERREUR = type;
+    longjmp(&buf, 1);
+}
 
+/*
+    Erreur d’exécution [TYPAGE] : nécessite un entier
+    Fonction fautive : « + »
+    Valeur fautive : «"saucisse"»
+*/
+
+
+char* afficher_type_erreur(enum erreurs type){
+    switch (type)
+    {
+    case TYPAGE:
+        return ("TYPAGE");
+     case ARITE:
+        return ("ARITE");
+     case NOM:
+        return ("NOM");
+     case MEMOIRE:
+        return ("MEMOIRE");
+        break;
+     case DIVISION_PAR_ZERO:
+        return ("DIVISION_PAR_ZERO");
+     case SYNTAXE:
+        return ("SYNTAXE");
+    case MEMOIRE_PARSEUR:
+        return ("MEMOIRE_PARSEUR");
+    case RUNTIME:
+        return ("RUNTIME"); break;
+    default:
+        return "";
+    }
+}
+
+void afficher_erreur(void){
+   printf("%s", couleur_rouge); 
+   printf("Erreur d’exécution [%s] : %s\n",afficher_type_erreur(TYPE_ERREUR), MESSAGE_ERREUR);
+   printf("fonction fautive :  « %s »\n", FONCTION_ERREUR);
+   printf("Valeur fautive  « ");
+   afficher(SEXPR_ERREUR);
+   printf(" »");
+   printf("%s", couleur_defaut); 
+}
 
 
 
@@ -62,8 +127,6 @@ jmp_buf *jump_buffer(void) {
 /************************/
 
 void erreur_parseur(char *explication) {
-    fprintf(stderr, "%sErreur parseur%s\n", couleur_rouge, couleur_defaut);
-    exit(1);
-    /*   erreur(SYNTAXE,"parseur vaλisp", explication, NULL); */
+    erreur(SYNTAXE,"parseur vaλisp", explication, NULL);
 
 }
