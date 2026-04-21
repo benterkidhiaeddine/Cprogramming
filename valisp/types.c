@@ -50,6 +50,9 @@ void afficher(sexpr s_expression){
             break;
         case chaine:
             printf("%s", s_expression->data.c);    
+        case symbole:
+            printf("%s", s_expression->data.c);    
+
     }
 }
 
@@ -148,4 +151,68 @@ bool string_p(sexpr val){
 char *get_string(sexpr val){
     return val->data.c;
 
+}
+
+
+/*
+    Fonctions pour les symboles
+*/
+
+bool my_strcmp(char* a, char* b) {
+    int i;
+    int l1 = longeur_chaine(a);
+    int l2 = longeur_chaine(b);
+
+    if (l1 != l2){
+        return 0;
+    }
+    for (i = 0; i <l1 ; i++){
+        if (a[i] != b[i]){
+            return 0;
+        }
+
+    }
+    return 1;
+    
+}
+
+
+sexpr new_symbol(char *c){
+
+    sexpr res = valisp_malloc(sizeof(struct valisp_object));
+
+    res->type = symbole;
+
+    if (c == NULL){
+        res->data.c = chaine_vers_memoire("nil");  ;
+    }else{
+        res->data.c = chaine_vers_memoire(c);
+    }
+
+    return res;
+}
+
+
+
+bool symbol_p(sexpr val){
+    if (val == NULL){
+        return 1;
+    }
+
+    return (val->type == symbole);
+
+}
+
+
+char *get_symbol(sexpr val){
+    if (val == NULL){
+        return "nil";
+    }
+    return val->data.c;
+}
+
+
+bool symbol_match_p(sexpr val, const char *chaine){
+    return my_strcmp(val->data.c , chaine);
+    
 }

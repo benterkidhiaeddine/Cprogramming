@@ -31,5 +31,16 @@ bool string_p(sexpr val);
 char *get_string(sexpr val);
 
 
+/*
+    Fonctions des symboles
+*/
+
+sexpr new_symbol(char *c);
+bool symbol_p(sexpr val);
+char *get_symbol(sexpr val);
+void afficher(sexpr val);
+bool symbol_match_p(sexpr val, const char *chaine);
+
+
 
 #endif
