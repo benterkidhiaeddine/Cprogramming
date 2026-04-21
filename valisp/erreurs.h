@@ -4,7 +4,7 @@
 #define VALISP_ERREUR_H
 
 void erreur_fatale(char  *fichier, int ligne, char* causes);
-#define ERREUR_FATALAE(CAUSE) erreur_fatale(__FILE__, __LINE__ , #CAUSE )
+#define ERREUR_FATALE(CAUSE) erreur_fatale(__FILE__, __LINE__ , #CAUSE )
 
 void erreur_parseur(char *explication);
 
