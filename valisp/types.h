@@ -53,6 +53,8 @@ sexpr cdr(sexpr e);
 void set_car(sexpr e, sexpr nouvelle);
 void set_cdr(sexpr e, sexpr nouvelle);
 void afficher_liste(sexpr e);
+int longeur_liste(sexpr liste);
+bool sexpr_equal(sexpr e1 , sexpr e2);
 
 
 /*

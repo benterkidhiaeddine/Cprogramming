@@ -190,3 +190,22 @@ sexpr cons_valisp(sexpr liste, sexpr env){
 }
 
 
+sexpr equal_valisp(sexpr liste, sexpr env){
+
+    sexpr a;
+    sexpr b;
+
+
+    test_nb_parametres(liste, "=", 2);
+
+    a = car(liste);
+    b = car(cdr(liste));
+
+    if (sexpr_equal(a ,b)){
+        return new_symbol("t");
+    }
+    else {
+        return new_symbol("nil");
+    }
+
+}

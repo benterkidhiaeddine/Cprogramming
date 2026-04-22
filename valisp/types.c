@@ -391,3 +391,36 @@ sexpr run_prim(sexpr p, sexpr liste, sexpr env){
     return p->data.pri.f(liste, env);
 
 }
+
+bool sexpr_equal(sexpr e1, sexpr e2){
+
+    if (e1 == NULL && e2 == NULL) return 1;
+
+    if (e1 == NULL || e2 == NULL) return 0;
+    
+
+    if (e1->type != e2->type) return 0;
+
+    switch (e1->type){
+        case entier:
+            return e1->data.i == e2->data.i;
+
+        case chaine:
+        case symbole:
+            return strcmp(e1->data.c, e2->data.c) == 0;
+
+
+        case prim:
+        case spec:
+            return (strcmp(e1->data.pri.nom,e2->data.pri.nom) == 0 && e1->data.pri.f == e2->data.pri.f);
+
+        case couple:
+            return (sexpr_equal(car(e1), car(e2)) && sexpr_equal(cdr(e1), cdr(e2)));
+
+    }
+
+
+    return 0;
+}
+
+
