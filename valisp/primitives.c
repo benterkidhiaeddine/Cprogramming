@@ -180,3 +180,19 @@ sexpr cdr_valisp(sexpr liste, sexpr env){
     return cdr(a);
 
 }
+
+
+sexpr cons_valisp(sexpr liste, sexpr env){
+    sexpr a;
+    sexpr b;
+    test_nb_parametres(liste, "cons", 2);
+
+
+    a = car(liste);
+    b = car(cdr(liste));
+    return cons(a, b);
+
+
+}
+
+
