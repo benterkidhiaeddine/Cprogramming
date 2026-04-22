@@ -31,3 +31,20 @@ sexpr add_valisp(sexpr liste, sexpr env){
     return new_integer(get_integer(a) + get_integer(b));
 
 }
+
+
+sexpr mul_valisp(sexpr liste, sexpr env){
+    sexpr a;
+    sexpr b;
+    test_nb_parametres(liste, "*" ,2);
+    
+    a = car(liste);
+    b = car(cdr(liste));
+
+    if (!integer_p(a)) erreur(TYPAGE, "*" ,"nécessite un entier", a);
+    if (!integer_p(b)) erreur(TYPAGE, "*" ,"nécessite un entier", b);
+
+    return new_integer(get_integer(a) * get_integer(b));
+
+
+}

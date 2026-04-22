@@ -7,7 +7,6 @@ void* valisp_malloc(size_t size){
     ptr_res = allocateur_malloc(size);
     if (ptr_res == NULL ){
         erreur(MEMOIRE, "valisp_malloc", "Pas assez de mémoire", NULL);
-        return;
     }
 
     return ptr_res;
