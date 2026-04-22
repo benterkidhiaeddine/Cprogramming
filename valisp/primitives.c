@@ -154,3 +154,15 @@ sexpr less_valisp(sexpr liste, sexpr env){
     }
 
 }
+
+
+sexpr car_valisp(sexpr liste, sexpr env){
+
+    sexpr a;
+    a = car(liste);
+    if (a == NULL){
+        return NULL;
+    }
+    return car(a);
+
+}

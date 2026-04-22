@@ -10,6 +10,7 @@ sexpr sub_valisp(sexpr liste, sexpr env);
 sexpr div_valisp(sexpr liste, sexpr env);
 sexpr mod_valisp(sexpr liste, sexpr env);
 sexpr less_than_valisp(sexpr liste, sexpr env);
+sexpr car_valisp(sexpr liste, sexpr env);
 
 
 
