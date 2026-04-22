@@ -227,3 +227,37 @@ sexpr print_valisp(sexpr liste, sexpr env){
 
 
 }
+
+sexpr type_of_valisp(sexpr liste, sexpr env) {
+    sexpr a;
+    test_nb_parametres(liste, "typeof", 1);
+
+    a = car(liste);
+
+    if (a == NULL) {
+        return new_symbol("nil"); 
+    }
+
+    switch (a->type) {
+        case entier:
+            return new_symbol("int");
+
+        case couple:
+            return new_symbol("cons");
+
+        case symbole:
+            return new_symbol("symbol");
+
+        case chaine:
+            return new_symbol("string");
+
+        case prim:
+            return new_symbol("primitive");
+
+        case spec:
+            return new_symbol("special");
+        default:
+            return new_symbol("uknown");
+
+    }
+}

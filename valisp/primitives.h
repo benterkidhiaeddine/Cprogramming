@@ -15,5 +15,6 @@ sexpr cdr_valisp(sexpr liste, sexpr env);
 sexpr cons_valisp(sexpr liste, sexpr env);
 sexpr equal_valisp(sexpr liste, sexpr env);
 sexpr print_valisp(sexpr liste, sexpr env);
+sexpr type_of_valisp(sexpr liste, sexpr env);
 
 #endif
