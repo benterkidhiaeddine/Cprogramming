@@ -48,3 +48,40 @@ sexpr mul_valisp(sexpr liste, sexpr env){
 
 
 }
+
+
+sexpr sub_valisp(sexpr liste, sexpr env){
+    sexpr a;
+    sexpr b;
+    
+
+    /*
+        Cas pas de paramètres 
+    */
+
+    if (liste == NULL){
+        erreur(ARITE, "-", "nombre de paramètres 1 ou 2", liste);
+    }
+    /*
+        Cas un seul paramètre : c'est la négation
+    */
+    if (longeur_liste(liste) == 1){
+        a = car(liste);
+        if (!integer_p(a)) erreur(TYPAGE, "-" ,"nécessite un entier", a);
+        return new_integer(- get_integer(a));
+    }
+    /*
+        Cas deux parmètres c'est la soustraction 
+    */ 
+    test_nb_parametres(liste, "-" ,2);
+    
+    a = car(liste);
+    b = car(cdr(liste));
+
+    if (!integer_p(a)) erreur(TYPAGE, "-" ,"nécessite un entier", a);
+    if (!integer_p(b)) erreur(TYPAGE, "-" ,"nécessite un entier", b);
+
+    return new_integer(get_integer(a) - get_integer(b));
+
+
+}
