@@ -209,3 +209,21 @@ sexpr equal_valisp(sexpr liste, sexpr env){
     }
 
 }
+
+
+sexpr print_valisp(sexpr liste, sexpr env){
+
+    sexpr tmp;
+    sexpr last;
+    if (liste == NULL){
+        return new_string("");
+    }
+    for (tmp = liste; tmp != NULL; tmp =cdr(tmp)){
+        afficher(car(tmp));
+        last = car(tmp);
+    }
+
+    return last;
+
+
+}
