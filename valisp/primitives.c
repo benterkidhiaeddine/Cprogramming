@@ -166,3 +166,17 @@ sexpr car_valisp(sexpr liste, sexpr env){
     return car(a);
 
 }
+
+
+
+
+sexpr cdr_valisp(sexpr liste, sexpr env){
+
+    sexpr a;
+    a = car(liste);
+    if (a == NULL){
+        return NULL;
+    }
+    return cdr(a);
+
+}
