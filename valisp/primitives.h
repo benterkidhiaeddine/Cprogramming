@@ -7,5 +7,10 @@ void test_nb_parametres(sexpr liste, char* fonction, int taille);
 sexpr add_valisp(sexpr liste, sexpr env);
 sexpr mul_valisp(sexpr liste, sexpr env);
 sexpr sub_valisp(sexpr liste, sexpr env);
+sexpr div_valisp(sexpr liste, sexpr env);
+
+
+
+
 
 #endif

@@ -85,3 +85,25 @@ sexpr sub_valisp(sexpr liste, sexpr env){
 
 
 }
+
+
+sexpr div_valisp(sexpr liste, sexpr env){
+    sexpr a;
+    sexpr b;
+    test_nb_parametres(liste, "/" ,2);
+    
+    a = car(liste);
+    b = car(cdr(liste));
+
+    if (!integer_p(a)) erreur(TYPAGE, "/" ,"nécessite un entier", a);
+    if (!integer_p(b)) erreur(TYPAGE, "/" ,"nécessite un entier", b);
+
+
+    if (get_integer(b) == 0){
+        erreur(DIVISION_PAR_ZERO, "/", "ca fait l'infini !!!", liste);
+    }
+
+    return new_integer(get_integer(a) / get_integer(b));
+
+
+}
