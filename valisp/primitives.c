@@ -129,3 +129,28 @@ sexpr mod_valisp(sexpr liste, sexpr env){
 
 
 }
+
+
+sexpr less_valisp(sexpr liste, sexpr env){
+
+
+    sexpr a;
+    sexpr b;
+    test_nb_parametres(liste, "<" ,2);
+    
+    a = car(liste);
+    b = car(cdr(liste));
+
+    if (!integer_p(a)) erreur(TYPAGE, "<" ,"nécessite un entier", a);
+    
+    
+    if (!integer_p(b)) erreur(TYPAGE, "<" ,"nécessite un entier", b);
+
+    if (get_integer(a) < get_integer(b)){
+        return new_symbol("t");
+    }
+    else {
+        return new_symbol("nil");
+    }
+
+}
