@@ -279,6 +279,15 @@ void set_cdr(sexpr e, sexpr nouvelle){
     e->data.con.cdr = nouvelle;
 }
 
+
+int longeur_liste(sexpr liste){
+    if (liste == NULL){
+        return 0;
+    }
+    return (1+ longeur_liste(cdr(liste)));
+}
+
+
 void afficher_liste(sexpr e){
     sexpr x;
     sexpr y;

@@ -2,12 +2,6 @@
 #include <stdio.h>
 #include "erreurs.h"
 
-int longeur_liste(sexpr liste){
-    if (liste == NULL){
-        return 0;
-    }
-    return (1+ longeur_liste(cdr(liste)));
-}
 
 
 void test_nb_parametres(sexpr liste, char* fonction, int taille) {
