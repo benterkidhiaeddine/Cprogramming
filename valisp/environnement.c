@@ -1,5 +1,6 @@
 #include "environnement.h" 
 #include <stdio.h>
+#include "debug.h"
 
 
 sexpr ENV = NULL;
@@ -67,5 +68,29 @@ void afficher_env(sexpr env){
        afficher(valeur);
        printf("\n");
     }
+
+}
+
+
+
+int trouver_variable(sexpr env, sexpr variable, sexpr *resultat){
+
+    sexpr tmp;
+    sexpr curr;
+    sexpr variable_c;
+    sexpr valeur_c;
+    for (tmp = env; tmp != NULL; tmp = cdr(tmp)){
+        curr = car(tmp);
+        variable_c = car(curr);
+        valeur_c = cdr(curr);
+
+        
+
+        if (sexpr_equal(variable, variable_c)){
+            *resultat = valeur_c;
+            return 0;
+        }
+    }
+    return -1;
 
 }

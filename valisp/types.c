@@ -372,7 +372,7 @@ bool sexpr_equal(sexpr e1, sexpr e2){
 
         case chaine:
         case symbole:
-            return strcmp(e1->data.c, e2->data.c) == 0;
+            return (strcmp(e1->data.c, e2->data.c) == 0);
 
 
         case prim:

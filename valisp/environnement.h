@@ -12,5 +12,6 @@ void initialiser_memoire(void);
 int longueur_env(sexpr env);
 void valisp_stat_memoire(void);
 void afficher_env(sexpr env);
+int trouver_variable(sexpr env, sexpr variable, sexpr *resultat);
 
 #endif
