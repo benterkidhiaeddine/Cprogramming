@@ -42,3 +42,30 @@ int longueur_env(sexpr env){
 void valisp_stat_memoire(void){
     afficher_stat_memoire();
 }
+
+
+void afficher_env(sexpr env){
+
+    sexpr ENV;
+    sexpr tmp;
+    sexpr curr;
+    sexpr variable;
+    sexpr valeur;
+
+    ENV = environnement_global();
+
+
+    for (tmp = ENV; tmp != NULL; tmp = cdr(tmp)){
+        curr = car(tmp);
+        variable = car(curr);
+        valeur = cdr(curr);
+
+       printf("%s", couleur_bleu); 
+       afficher(variable);
+       printf(" ");
+       printf("%s", couleur_defaut); 
+       afficher(valeur);
+       printf("\n");
+    }
+
+}
