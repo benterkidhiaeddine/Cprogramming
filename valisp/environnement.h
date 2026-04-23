@@ -7,6 +7,6 @@
 
 sexpr environnement_global(void);
 void initialiser_memoire(void);
-
+int longueur_env(sexpr env);
 
 #endif

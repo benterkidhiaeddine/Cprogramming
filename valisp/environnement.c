@@ -26,3 +26,14 @@ void initialiser_memoire(void){
     ENV = environnement_global();
     ENV =  cons(variable_t , NULL);
 }
+
+
+int longueur_env(sexpr env){
+    int res = 0; 
+    sexpr tmp;
+    for (tmp = env; tmp != NULL; tmp = cdr(tmp)){
+
+        res += 1;
+    } 
+    return res;
+}
