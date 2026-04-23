@@ -37,3 +37,8 @@ int longueur_env(sexpr env){
     } 
     return res;
 }
+
+
+void valisp_stat_memoire(void){
+    afficher_stat_memoire();
+}
