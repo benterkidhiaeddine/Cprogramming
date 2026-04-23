@@ -11,6 +11,7 @@
 #include "allocateur.h"
 #include "types.h"
 #include "primitives.h"
+#include "environnement.h"
 
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -208,7 +209,8 @@ int tp3_main(int argc, char *argv[]) {
 
     afficher_banniere_tp3();
     printf("Initialisation mémoire");
-    initialiser_memoire_dynamique();
+    /* initialiser_memoire_dynamique(); */
+    initialiser_memoire();
     printf(" [OK]\n");
 
     /* Pour ceux qui souhaite lancer uniquement les tests sans lancer
