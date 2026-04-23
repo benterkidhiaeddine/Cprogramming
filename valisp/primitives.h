@@ -1,6 +1,7 @@
 #ifndef PRIMITIVES_H
 #define PRIMITIVES_H
 #include "types.h"
+#include "environnement.h"
     
 
 void test_nb_parametres(sexpr liste, char* fonction, int taille);
@@ -16,5 +17,7 @@ sexpr cons_valisp(sexpr liste, sexpr env);
 sexpr equal_valisp(sexpr liste, sexpr env);
 sexpr print_valisp(sexpr liste, sexpr env);
 sexpr type_of_valisp(sexpr liste, sexpr env);
+sexpr defvar_valisp(sexpr liste, sexpr env);
+sexpr setq_valisp(sexpr liste, sexpr env);
 
 #endif

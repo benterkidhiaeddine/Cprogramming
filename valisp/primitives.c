@@ -261,3 +261,55 @@ sexpr type_of_valisp(sexpr liste, sexpr env) {
 
     }
 }
+
+
+/*
+    Formes spéciales
+*/
+
+
+sexpr defvar_valisp(sexpr liste, sexpr env) {
+    sexpr nom, exp, res;
+
+    test_nb_parametres(liste,"defvar",2);
+
+
+    nom = car(liste); /* (defvar nom exp) */
+    exp = car(cdr(liste));
+
+    if (!symbol_p(nom)) {
+        erreur(TYPAGE,"defvar",
+        "Le 1er paramètre doit être un symbole",
+        nom);
+    }
+    res = exp; /* Il faut évaluer à la main le */
+
+    /* second paramètre exp */
+
+    definir_variable_globale(nom,res);
+    return res;
+}
+
+
+sexpr setq_valisp(sexpr liste, sexpr env) {
+    sexpr nom, exp, res;
+
+    
+    test_nb_parametres(liste,"defvar",2);
+
+
+    nom = car(liste); /* (defvar nom exp) */
+    exp = car(cdr(liste));
+
+    if (!symbol_p(nom)) {
+        erreur(TYPAGE,"setq",
+        "Le 1er paramètre doit être un symbole",
+        nom);
+    }
+    res = exp; /* Il faut évaluer à la main le */
+
+    if (modifier_variable(env, nom ,res ) != 0){
+        erreur(NOM, "setq", "Variable inconnue", nom);
+    }
+    return res;
+}

@@ -155,4 +155,6 @@ void charger_une_speciale(char *nom_valisp, char *nom_c, primitive p){
 
 void charger_primitives(){
     CHARGER_UNE_PRIMITIVE("+",add_valisp);
+    CHARGER_UNE_PRIMITIVE("defvar",defvar_valisp);
+    CHARGER_UNE_PRIMITIVE("setq",setq_valisp);
 }
