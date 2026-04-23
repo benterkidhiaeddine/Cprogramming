@@ -246,6 +246,21 @@ int pointeur_vers_indice(void *ptr){
     }
 
     return ((bloc*) ptr - MEMOIRE_DYNAMIQUE - 1);
-
-
 }
+
+
+int ramasse_miettes_lire_marque(void *ptr){
+    int indice = pointeur_vers_indice(ptr);
+    return  rm_bloc(indice) ;
+}
+
+int ramasse_miettes_poser_marque(void *ptr){
+    int indice = pointeur_vers_indice(ptr);
+    if( rm_bloc(indice)){
+        ERREUR_FATALE("deja marqué");
+    }
+
+    MEMOIRE_DYNAMIQUE[indice] = cons_bloc(1 , bloc_precedant(indice), usage_bloc, bloc_suivant(indice));
+
+} 
+
