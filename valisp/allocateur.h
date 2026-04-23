@@ -42,4 +42,6 @@ void allocateur_free (void *ptr);
 int pointeur_vers_indice(void *ptr);
 int ramasse_miettes_lire_marque(void *ptr);
 int ramasse_miettes_poser_marque(void *ptr) ;
+int bloc_libre(int i);
+void ramasse_miettes_liberer(void);
 #endif

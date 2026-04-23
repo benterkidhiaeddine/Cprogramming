@@ -197,7 +197,7 @@ void allocateur_bree(int i){
     */
     if (usage_bloc(prev_i) && usage_bloc(suivant_i)){
         /*  On change seuelemnt le bit d'usage */
-        MEMOIRE_DYNAMIQUE[i] = cons_bloc(0,bloc_precedant(i), 0 , bloc_suivant(i));
+        MEMOIRE_DYNAMIQUE[i] = cons_bloc(rm_bloc(i),bloc_precedant(i), 0 , bloc_suivant(i));
         return;
     }
 
@@ -217,7 +217,7 @@ void allocateur_bree(int i){
         Bloc précedent  occupé, bloc suivant libre  
     */
     else if (usage_bloc(prev_i) && !usage_bloc(suivant_i)){
-        MEMOIRE_DYNAMIQUE[i] = cons_bloc(0,bloc_precedant(i), 0 , bloc_suivant(suivant_i));
+        MEMOIRE_DYNAMIQUE[i] = cons_bloc(rm_bloc(i),bloc_precedant(i), 0 , bloc_suivant(suivant_i));
         MEMOIRE_DYNAMIQUE[suivant_suivant_i] = cons_bloc(rm_bloc(suivant_suivant_i), i, usage_bloc(suivant_suivant_i), bloc_suivant(suivant_suivant_i));
         return;
     }    
@@ -261,6 +261,29 @@ int ramasse_miettes_poser_marque(void *ptr){
     }
 
     MEMOIRE_DYNAMIQUE[indice] = cons_bloc(1 , bloc_precedant(indice), usage_bloc, bloc_suivant(indice));
+    return 1;
 
 } 
 
+
+int bloc_libre(int i){
+    if (i == TAILLE_MEMOIRE_DYNAMIQUE - 1){
+        return 0;
+    }
+
+    return !rm_bloc(i);
+}
+
+void ramasse_miettes_liberer(void){ 
+
+    int i;
+
+    for(i = 0; i != TAILLE_MEMOIRE_DYNAMIQUE - 1 ; i = bloc_suivant(i)){
+
+        if  (bloc_libre(i)){
+            allocateur_bree(i);
+        }
+        MEMOIRE_DYNAMIQUE[i] = cons_bloc(0, bloc_precedant(i), usage_bloc(i), bloc_suivant(i));
+
+    }
+}
