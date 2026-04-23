@@ -94,3 +94,23 @@ int trouver_variable(sexpr env, sexpr variable, sexpr *resultat){
     return -1;
 
 }
+
+
+int modifier_variable(sexpr env, sexpr variable, sexpr valeur){
+
+    sexpr tmp;
+    sexpr curr;
+    sexpr variable_c;
+    sexpr valeur_c;
+    for (tmp = env; tmp != NULL; tmp = cdr(tmp)){
+        curr = car(tmp);
+        variable_c = car(curr);
+
+        if (sexpr_equal(variable, variable_c)){
+            set_cdr(curr , valeur);
+            return 0;
+        }
+    }
+    return -1;
+
+}
