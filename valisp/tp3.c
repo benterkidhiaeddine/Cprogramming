@@ -211,6 +211,7 @@ int tp3_main(int argc, char *argv[]) {
     printf("Initialisation mémoire");
     /* initialiser_memoire_dynamique(); */
     initialiser_memoire();
+    charger_primitives();
     printf(" [OK]\n");
 
     /* Pour ceux qui souhaite lancer uniquement les tests sans lancer

@@ -14,6 +14,7 @@ sexpr environnement_global(void){
 
 void initialiser_memoire(void){
     sexpr variable_t;
+    sexpr t;
     initialiser_memoire_dynamique();
 
 
@@ -21,7 +22,7 @@ void initialiser_memoire(void){
         Créer un nouveu t : t 
     */
 
-    sexpr t = new_symbol("t");
+    t = new_symbol("t");
     variable_t = cons(t , t);
 
     ENV = environnement_global();
@@ -101,7 +102,7 @@ int modifier_variable(sexpr env, sexpr variable, sexpr valeur){
     sexpr tmp;
     sexpr curr;
     sexpr variable_c;
-    sexpr valeur_c;
+
     for (tmp = env; tmp != NULL; tmp = cdr(tmp)){
         curr = car(tmp);
         variable_c = car(curr);
@@ -113,4 +114,45 @@ int modifier_variable(sexpr env, sexpr variable, sexpr valeur){
     }
     return -1;
 
+}
+
+
+void definir_variable_globale(sexpr variable, sexpr valeur){
+    sexpr ENV;
+    sexpr tmp;
+
+
+    ENV = environnement_global();
+    if (modifier_variable(ENV, variable , valeur) != 0){
+
+        for (tmp = ENV;  tmp != NULL && cdr(tmp) != NULL; tmp = cdr(tmp)){
+            /*On parcours l'environnement jusqu'à la fin*/
+        }
+
+        set_cdr(tmp, 
+            cons(
+                cons(variable, valeur)
+                ,NULL)
+            );
+
+    }
+
+}
+
+/*
+
+    Logique pour charger les primitives
+
+*/
+
+void charger_une_primitive(char *nom_valisp, char *nom_c, primitive p){
+    definir_variable_globale( new_symbol(nom_valisp), new_primitive(nom_c, p));
+}
+
+void charger_une_speciale(char *nom_valisp, char *nom_c, primitive p){
+    definir_variable_globale( new_symbol(nom_valisp), new_speciale(nom_c, p));
+}
+
+void charger_primitives(){
+    CHARGER_UNE_PRIMITIVE("+",add_valisp);
 }
