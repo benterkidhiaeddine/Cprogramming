@@ -5,6 +5,7 @@
 #include "erreurs.h"
 
 #define TAILLE_MEMOIRE_DYNAMIQUE 32768
+
 /*
     Maitre les headers des types ici
 
@@ -30,6 +31,15 @@ void *allocateur_malloc(size_t size);
 
 void allocateur_bree(int i);
 void allocateur_free (void *ptr);
+
+
+
+/*
+
+    Rammasse miettes
+
+*/
+int pointeur_vers_indice(void *ptr);
 
 
 #endif

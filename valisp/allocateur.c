@@ -237,3 +237,15 @@ void allocateur_free (void *ptr){
     int pointer_i = (bloc*) ptr - MEMOIRE_DYNAMIQUE -1; 
     allocateur_bree(pointer_i);
 }
+
+int pointeur_vers_indice(void *ptr){
+
+    if (ptr < MEMOIRE_DYNAMIQUE || ptr >= (MEMOIRE_DYNAMIQUE + TAILLE_MEMOIRE_DYNAMIQUE )){
+        ERREUR_FATALE("Acces au dela du memoir dynamique");
+
+    }
+
+    return ((bloc*) ptr - MEMOIRE_DYNAMIQUE - 1);
+
+
+}
