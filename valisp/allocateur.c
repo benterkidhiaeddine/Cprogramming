@@ -3,7 +3,7 @@
 
 
 
-bloc MEMOIRE_DYNAMIQUE[TAILLE_MEMOIRE_DYNAMIQUE];
+MEMOIRE_DYNAMIQUE[TAILLE_MEMOIRE_DYNAMIQUE];
 
 
 void initialiser_memoire_dynamique(){

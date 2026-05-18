@@ -4,7 +4,10 @@
 #include <stddef.h>
 #include "erreurs.h"
 
+
 #define TAILLE_MEMOIRE_DYNAMIQUE 32768
+bloc MEMOIRE_DYNAMIQUE;
+
 
 /*
     Maitre les headers des types ici

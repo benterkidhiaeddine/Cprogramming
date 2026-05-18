@@ -1,6 +1,7 @@
 #include "memoire.h"
 #include <stdlib.h>
 #include "erreurs.h"
+#include "environnement.h"
 
 void* valisp_malloc(size_t size){
     void * ptr_res;
@@ -11,4 +12,31 @@ void* valisp_malloc(size_t size){
 
     return ptr_res;
     
+}
+
+
+
+void ramasse_miette_parcourir_et_marquer(sexpr s){
+    sexpr curr;
+    int indice;
+
+   if (s == NULL || rm_bloc(pointeur_vers_indice(s))){
+    return;
+   }
+
+   curr = car(s);
+   switch (curr->type)
+   {
+   case chaine:
+   case symbole:
+    indice = pointeur_vers_indice(curr->data.c);
+    
+    
+    
+    /* code */
+    break;
+   
+   default:
+    break;
+   }
 }
